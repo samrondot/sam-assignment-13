@@ -26,7 +26,7 @@ public class UserController {
 	@PostMapping("/register")
 	public String postCreateUser(User user) {
 		System.out.println(user);
-		userService.createUser(user);
+		userService.saveUser(user);
 		return "redirect:/register";
 	}
 	
@@ -35,14 +35,26 @@ public class UserController {
 		public String getAllUsers (ModelMap model) {
 		List<User> users = userService.findAll();
 		model.put("users", users);
+		if(users.size()==1)
+			model.put("user", users.get(0));
 		return "users";
 	}
 	@GetMapping("/users/{userId}")
 		public String getOneUser (ModelMap model, @PathVariable Long userId) {
 		User user = userService.findOne(userId);
 		model.put("users", Arrays.asList(user));
+		model.put("user", user);
 		return "users";
 	}
-	
-	
+	@PostMapping("/users/{userId}")
+	public String postOneUser (User user) {
+		userService.saveUser(user);
+		return "redirect:/users/"+user.getUserId();
+	}
+	@PostMapping("users/{userId}/delete")
+	public String deleteOneUser (@PathVariable Long userId ) {
+		userService.delete(userId);
+		return "redirect:/users";
+	}
+		
 }

@@ -1,5 +1,6 @@
 package com.coderscampus.assignment13.domain;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +21,7 @@ public class User {
 	private String username;
 	private String password;
 	private String name;
+	private LocalDate createdDate;
 	private List<Account>account = new ArrayList<>();
 	private Address address;
 	
@@ -49,6 +51,13 @@ public class User {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public LocalDate getCreatedDate() {
+		return createdDate;
+	}
+	public void setCreatedDate(LocalDate createdDate) {
+		this.createdDate = createdDate;
 	}
 	@ManyToMany 
 	@JoinTable(name = "user_acount",
