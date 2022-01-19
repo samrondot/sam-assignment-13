@@ -6,10 +6,11 @@
 	<body>
 		<h1 th:text = "${account.accountName}"></h1>
 		
-				<form action = "" method = "post">
+				<form th:action=@{/users/{userId}/account/{accountId}(userId=${user.userId},accountId=${account.accountId})} method="post">
 					Account Name: <input type="text" th:field="${account.accountName}" />
-					<input type="submit" value="Save Account"/>
+					<input type="submit" value="Create New Account" />
 				</form>
+				
 				
 				<hr/>
 		

@@ -69,6 +69,13 @@ public class UserController {
 		return "account";
 	}
 	
+	@PostMapping("/users/{userId}/account/{accountId}")
+	public String updateAccount (Account account) {
+		
+		userService.updateAccount(account);
+		return "redirect:/users/{userId}/account/{accountId}";
+	}
+	
 	@PostMapping("/users/{userId}/delete")
 	public String deleteOneUser (@PathVariable Long userId) {
 		userService.delete(userId);

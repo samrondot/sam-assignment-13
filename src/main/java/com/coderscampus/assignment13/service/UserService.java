@@ -53,16 +53,16 @@ public class UserService {
 
 	public User saveUser(User user, Address address) {
 		if(user.getUserId() == null) {
-			Account checking = new Account();
-			checking.setAccountName("Checking Account");
-			checking.getUsers().add(user);
-			user.getAccounts().add(checking);
-			Account savings = new Account();
-			savings.setAccountName("Savings");
-			savings.getUsers().add(user);
-			user.getAccounts().add(savings);
-			accountRepo.save(checking);
-			accountRepo.save(savings);
+			Account account1 = new Account();
+			account1.setAccountName("Account #1");
+			account1.getUsers().add(user);
+			user.getAccounts().add(account1);
+			Account account2 = new Account();
+			account2.setAccountName("Account #2");
+			account2.getUsers().add(user);
+			user.getAccounts().add(account2);
+			accountRepo.save(account1);
+			accountRepo.save(account2);
 		}
 		if(user.getAddress()==null) {
 		Address address1 = new Address();
@@ -98,6 +98,10 @@ public class UserService {
 
 	public Optional<Address> findAddress(Address address, Long userId) {
 		return addressRepo.findById(userId);
+		
+	}
+	public Account updateAccount(Account account) {
+		return accountRepo.save(account);
 		
 	}
 
