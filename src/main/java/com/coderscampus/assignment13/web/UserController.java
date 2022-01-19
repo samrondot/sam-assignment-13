@@ -74,12 +74,13 @@ public class UserController {
 		userService.updateAccount(account);
 		return "redirect:/users/{userId}/account/{accountId}";
 	}
-	@PostMapping("/users/{userId}/account/")
-	public String createAccount ( User user) {
-		userService.createAccount(user);
-		return "redirect:/users/";
+	@GetMapping("/users/{userId}/account/")
+	public String createAccount (ModelMap model, User user, Account account) {
+		model.put("account", account);
+		
+		return "account";
 	}
-	
+	//
 	@PostMapping("/users/{userId}/delete")
 	public String deleteOneUser (@PathVariable Long userId) {
 		userService.delete(userId);
