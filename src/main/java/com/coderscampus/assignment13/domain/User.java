@@ -3,8 +3,11 @@ package com.coderscampus.assignment13.domain;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,7 +17,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-@Entity
+@Entity // Class name = User, DB Table name = user
 @Table(name = "users")
 public class User {
 	private Long userId;
@@ -22,12 +25,10 @@ public class User {
 	private String password;
 	private String name;
 	private LocalDate createdDate;
-	private List<Account>account = new ArrayList<>();
+	private List<Account> accounts = new ArrayList<>();
 	private Address address;
 	
-	
-	@Id
-	@GeneratedValue (strategy = GenerationType.IDENTITY)
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Long getUserId() {
 		return userId;
 	}
@@ -59,17 +60,17 @@ public class User {
 	public void setCreatedDate(LocalDate createdDate) {
 		this.createdDate = createdDate;
 	}
-	@ManyToMany 
-	@JoinTable(name = "user_acount",
-				joinColumns = @JoinColumn(name = "user_id"), 
-				inverseJoinColumns = @JoinColumn(name = "account_id"))
-	public List<Account> getAccount() {
-		return account;
+	@ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE})
+	@JoinTable(name = "user_account",
+	           joinColumns = @JoinColumn(name = "user_id"), 
+	           inverseJoinColumns = @JoinColumn(name = "account_id"))
+	public List<Account> getAccounts() {
+		return accounts;
 	}
-	public void setAccount(List<Account> account) {
-		this.account = account;
+	public void setAccounts(List<Account> accounts) {
+		this.accounts = accounts;
 	}
-	@OneToOne(mappedBy = "user")
+	@OneToOne(mappedBy = "user", cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true )
 	public Address getAddress() {
 		return address;
 	}
@@ -79,10 +80,21 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [userId=" + userId + ", username=" + username + ", password=" + password + ", name=" + name
-				+ ", account=" + account + ", address=" + address + "]";
+				+ ", accounts=" + accounts + ", address=" + address + "]";
 	}
-	
-	
-	
-
+	@Override
+	public int hashCode() {
+		return Objects.hash(userId);
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		return Objects.equals(userId, other.userId);
+	}
 }

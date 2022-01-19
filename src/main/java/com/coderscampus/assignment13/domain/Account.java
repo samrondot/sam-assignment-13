@@ -13,14 +13,14 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "accounts")
+@Table(name="accounts")
 public class Account {
 	private Long accountId;
 	private String accountName;
 	private List<Transaction> transactions = new ArrayList<>();
 	private List<User> users = new ArrayList<>();
 	
-	@Id @GeneratedValue (strategy = GenerationType.IDENTITY)
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Long getAccountId() {
 		return accountId;
 	}
@@ -38,18 +38,14 @@ public class Account {
 	public List<Transaction> getTransactions() {
 		return transactions;
 	}
-	
 	public void setTransactions(List<Transaction> transactions) {
 		this.transactions = transactions;
 	}
-	@ManyToMany(mappedBy = "account")
+	@ManyToMany(mappedBy = "accounts")
 	public List<User> getUsers() {
 		return users;
 	}
 	public void setUsers(List<User> users) {
 		this.users = users;
 	}
-	
-	
-	
 }

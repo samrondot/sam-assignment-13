@@ -12,7 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "transactions")
+@Table(name="transactions")
 public class Transaction {
 	private Long transactionId;
 	private LocalDateTime transactionDate;
@@ -20,7 +20,7 @@ public class Transaction {
 	private String type;
 	private Account account;
 	
-	@Id @GeneratedValue (strategy = GenerationType.IDENTITY)
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Long getTransactionId() {
 		return transactionId;
 	}
@@ -47,14 +47,11 @@ public class Transaction {
 		this.type = type;
 	}
 	@ManyToOne
-	@JoinColumn (name = "account_id")
+	@JoinColumn(name="account_id")
 	public Account getAccount() {
 		return account;
 	}
 	public void setAccount(Account account) {
 		this.account = account;
 	}
-	
-	
-
 }
