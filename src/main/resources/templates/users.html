@@ -46,12 +46,13 @@
 			<form th:action="@{/users/{userId}/delete(userId=${user.userId})}" method="post">
 				<input type="submit" value="Delete User Account" />
 			</form>
+		
 			<hr/>
 			<h2>Accounts</h2>
 			<div th:each="account : ${user.accounts}">
 				<a th:href=@{/users/{userId}/account/{accountId}(userId=${user.userId},accountId=${account.accountId})}>[[${account.accountName}]]</a>
 		</div>
-		
+		</div>
 		<div th:unless="${#lists.size(users) == 1}" th:each="user : ${users}">
 		    <a th:href=@{/users/{userId}(userId=${user.userId})}>[[${user.userId}]]</a><br/>
 			<span th:text="${user.username}"></span><br/>
