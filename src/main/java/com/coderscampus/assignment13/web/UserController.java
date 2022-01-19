@@ -70,10 +70,14 @@ public class UserController {
 	}
 	
 	@PostMapping("/users/{userId}/account/{accountId}")
-	public String updateAccount (Account account) {
-		
+	public String updateAccount (Account account, User user) {
 		userService.updateAccount(account);
 		return "redirect:/users/{userId}/account/{accountId}";
+	}
+	@PostMapping("/users/{userId}/account/")
+	public String createAccount ( User user) {
+		userService.createAccount(user);
+		return "redirect:/users/";
 	}
 	
 	@PostMapping("/users/{userId}/delete")
