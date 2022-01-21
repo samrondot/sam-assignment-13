@@ -104,6 +104,13 @@ public class UserService {
 		return accountRepo.save(account);
 		
 	}
+	public Account createAccount(User user) {
+		Account account = new Account();
+		account.setAccountName("Account# " + (user.getAccounts().size()+1));
+		account.getUsers().add(user);
+		user.getAccounts().add(account);
+		return accountRepo.save(account);
+	}
 
 
 

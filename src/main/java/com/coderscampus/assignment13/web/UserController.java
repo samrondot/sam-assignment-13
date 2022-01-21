@@ -69,24 +69,26 @@ public class UserController {
 		return "account";
 	}
 	
+	
+	@GetMapping("/users/{userId}/account/")
+	public String createAccount (ModelMap model, Account account) {
+		model.put("account", account);
+		
+		return "account";
+	}
+
 	@PostMapping("/users/{userId}/account/{accountId}")
 	public String updateAccount (Account account, User user) {
 		userService.updateAccount(account);
 		return "redirect:/users/{userId}/account/" + account.getAccountId();
 	}
-//	@GetMapping("/users/{userId}/account/")
-//	public String createAccount (ModelMap model, User user, Account account) {
-//		model.put("account", account);
-//		
-//		return "account";
-//	}
-	
-	@GetMapping("/blah/")
-	public String createAccount () {
-//		model.put("account", account);
-		
-		return "account";
+	@PostMapping("/users/{userId}/account/createAccount")
+	public String updateAccount (@PathVariable Long userId) {
+		User user = userService.findByUserId(userId);
+		Account account = userService.createAccount(user);
+		return "redirect:/users/"+user.getUserId()+"/account/" + account.getAccountId();
 	}
+
 	//
 	@PostMapping("/users/{userId}/delete")
 	public String deleteOneUser (@PathVariable Long userId) {
