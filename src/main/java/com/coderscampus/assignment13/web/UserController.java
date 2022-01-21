@@ -69,7 +69,6 @@ public class UserController {
 		return "account";
 	}
 	
-	
 	@GetMapping("/users/{userId}/account/")
 	public String createAccount (ModelMap model, Account account) {
 		model.put("account", account);
@@ -83,13 +82,12 @@ public class UserController {
 		return "redirect:/users/{userId}/account/" + account.getAccountId();
 	}
 	@PostMapping("/users/{userId}/account/createAccount")
-	public String updateAccount (@PathVariable Long userId) {
+	public String createAccount (@PathVariable Long userId) {
 		User user = userService.findByUserId(userId);
 		Account account = userService.createAccount(user);
 		return "redirect:/users/"+user.getUserId()+"/account/" + account.getAccountId();
 	}
 
-	//
 	@PostMapping("/users/{userId}/delete")
 	public String deleteOneUser (@PathVariable Long userId) {
 		userService.delete(userId);

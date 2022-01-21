@@ -38,7 +38,6 @@
 					Zip Code: <input type="text" th:field="${address.zipCode}" />
 				</div>
 				<hr/>
-				<a th:href=@{/users}>Back</a>
 				
 				<div>
 					<input type="submit" value="Update User Account" />
@@ -55,8 +54,9 @@
 	
 			</div><br>
 				<form th:action=@{/users/{userId}/account/createAccount(userId=${user.userId})} method="post">
-					<input type="submit" value="Create New Account" />
-				</form>
+					<input type="submit" value="Create New Bank Account" />
+				</form><br/>
+				<a th:href=@{/users}>Back</a>
 	</div>
 		<div th:unless="${#lists.size(users) == 1}" th:each="user : ${users}">
 		    <a th:href=@{/users/{userId}(userId=${user.userId})}>[[${user.userId}]]</a><br/>
@@ -67,6 +67,7 @@
 				<a th:href=@{/users/{userId}/account/{accountId}(userId=${user.userId},accountId=${account.accountId})}>[[${account.accountName}]]</a>
 			</div>
 			<hr/>
-		</div>
+			
+		</div><br/>
 	</body>
 </html>
